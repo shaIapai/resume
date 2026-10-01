@@ -385,6 +385,126 @@ export function generateStandaloneHtml(data: ResumeData, config: ResumeConfig): 
 </html>`;
 }
 
+export function generateLongreadHtml(data: ResumeData, config: ResumeConfig): string {
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${data.name} // QA Longread Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111113;
+      --ink: #f2efeb;
+      --accent: #5ef38c;
+      --ink-faint: rgba(242, 239, 235, 0.08);
+      --ink-dim: rgba(242, 239, 235, 0.6);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    .font-display { font-family: 'Syne', sans-serif; letter-spacing: -0.04em; text-transform: uppercase; }
+    .font-code { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+    .container { max-width: 860px; margin: 0 auto; padding: 40px 20px; }
+    .section { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid rgba(242, 239, 235, 0.15); padding: 60px 0; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); background: var(--ink-faint); border: 1px solid rgba(94, 243, 140, 0.3); padding: 4px 10px; display: inline-block; margin-bottom: 16px; }
+    .card { background: #111113; border: 1px solid rgba(242, 239, 235, 0.2); padding: 24px; margin-top: 20px; box-shadow: 12px 12px 0 var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+    .grid-card { border: 1px solid rgba(242, 239, 235, 0.2); padding: 18px; background: var(--ink-faint); }
+    h1 { font-family: 'Syne', sans-serif; font-size: 3rem; line-height: 0.95; }
+    h2 { font-family: 'Syne', sans-serif; font-size: 2rem; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Section 1 -->
+    <div class="section">
+      <div class="badge">[01 // КАРТОЧКА СОИСКАТЕЛЯ]</div>
+      <h1 class="font-display">${data.name}</h1>
+      <div style="font-size: 1.3rem; color: var(--accent); font-weight: 600; margin-top: 10px;">${data.title}</div>
+      <div style="margin-top: 16px; color: var(--ink-dim);">${data.location} · ${data.workFormat} · ${data.phone} · ${data.email}</div>
+      <div class="card">
+        <strong style="color: var(--accent); font-family: 'JetBrains Mono', monospace;">О СЕБЕ</strong>
+        <p style="margin-top: 10px;">${data.about}</p>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <div class="badge">[02 // ОПЫТ РАБОТЫ]</div>
+      <h2>ЯНДЕКС КРАУД — ГОЛОСОВОЙ АССИСТЕНТ «АЛИСА»</h2>
+      <div style="color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-top: 6px;">ИЮНЬ 2022 — АВГУСТ 2023 · АССЕСОР 2-Й КАТЕГОРИИ</div>
+      <div style="margin-top: 20px;">
+        ${data.experience[0]?.highlights.map((h, i) => `
+          <div style="background: var(--ink-faint); border: 1px solid rgba(242, 239, 235, 0.1); padding: 14px; margin-bottom: 10px;">
+            <strong style="color: var(--accent); font-family: monospace;">0${i+1}.</strong> ${h}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <div class="badge">[03 // ТЕХНОЛОГИЧЕСКИЙ СТЕК]</div>
+      <h2>НАВЫКИ И ИНСТРУМЕНТЫ</h2>
+      <div class="grid">
+        ${data.skills.map((s, i) => `
+          <div class="grid-card">
+            <div style="font-family: monospace; font-size: 10px; color: var(--ink-dim);">SKILL_0${i+1}</div>
+            <strong style="margin-top: 6px; display: block;">${s}</strong>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <div class="badge">[04 // ОБРАЗОВАНИЕ]</div>
+      <h2>ОБРАЗОВАНИЕ И КУРСЫ</h2>
+      <div class="grid">
+        <div class="grid-card">
+          <strong style="color: var(--accent); font-family: monospace;">ВЫСШЕЕ:</strong>
+          <div style="font-size: 14px; margin-top: 6px;">${data.education[0]?.degree}</div>
+          <div style="font-size: 12px; color: var(--ink-dim);">${data.education[0]?.university} (${data.education[0]?.year})</div>
+        </div>
+        <div class="grid-card">
+          <strong style="color: var(--accent); font-family: monospace;">ПОВЫШЕНИЕ КВАЛИФИКАЦИИ:</strong>
+          ${data.courses.map(c => `
+            <div style="margin-top: 8px; font-size: 12px;"><strong>${c.title}</strong> — ${c.institution} (${c.year})</div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section" style="border-bottom: none;">
+      <div class="badge">[05 // КОНТАКТЫ & СВЯЗЬ]</div>
+      <h2>ГОТОВ К НОВЫМ QA-ЗАДАЧАМ</h2>
+      <div class="card">
+        <div style="font-size: 1.5rem; font-weight: 800;">${data.name}</div>
+        <div style="color: var(--accent); margin-top: 4px;">${data.salary} · ${data.workFormat}</div>
+        <div style="margin-top: 16px; font-family: monospace; font-size: 13px;">
+          <div>📞 <a href="tel:${data.phone.replace(/[^0-9+]/g, '')}">${data.phone}</a></div>
+          <div style="margin-top: 6px;">✉️ <a href="mailto:${data.email}">${data.email}</a></div>
+          <div style="margin-top: 6px;">📍 ${data.location}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
 export function downloadHtmlFile(htmlContent: string, fileName: string = 'Oleg_Stroykov_QA_Resume.html') {
   const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
   const url = URL.createObjectURL(blob);

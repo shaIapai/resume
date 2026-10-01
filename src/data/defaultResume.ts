@@ -1,5 +1,5 @@
 import { ResumeData } from '../types/resume';
-import avatarImg from '../assets/images/oleg_custom_photo_1790833614935.jpg';
+import avatarImg from '../assets/images/oleg_stroykov_real_1790835269562.jpg';
 
 export const defaultResumeData: ResumeData = {
   name: 'СТРОЙКОВ ОЛЕГ',
