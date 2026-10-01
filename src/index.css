@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #111113;
+  --ink: #f2efeb;
+  --accent: #5ef38c;
+  --accent-rgb: 94, 243, 140;
+  --ink-faint: rgba(242, 239, 235, 0.08);
+  --ink-dim: rgba(242, 239, 235, 0.6);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.font-display {
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.font-code {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(242, 239, 235, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.brutalist-shadow {
+  box-shadow: 16px 16px 0 var(--accent);
+}
+
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  #resume-print-container {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #resume-print-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    min-height: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 8mm 10mm;
+  }
+}
